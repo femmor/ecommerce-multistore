@@ -7,6 +7,9 @@ const app = express();
 
 dotenv.config();
 
+// middleware
+app.use(express.json());
+
 // Connect DB
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -16,7 +19,7 @@ mongoose
   .then(() => {
     console.log('Database connected successfully');
   })
-  .catch(err => console.log('Database connection failed!', err));
+  .catch(err => console.log('Database connection failed!', err.message));
 
 // First route
 app.get('/', (req, res) => {
