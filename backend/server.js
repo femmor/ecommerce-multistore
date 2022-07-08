@@ -2,6 +2,9 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRouter.js';
+import categoryRouter from './routes/categoryRoutes.js';
+import productRouter from './routes/productRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 // Initialize backend server
 const app = express();
@@ -14,6 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // SeedRouter
 app.use('/api/seed', seedRouter);
+
+// App Routers
+app.use('/api/categories', categoryRouter);
+app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
 
 // Connect DB
 mongoose
