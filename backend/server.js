@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import seedRouter from './routes/seedRouter.js';
 
 // Initialize backend server
 const app = express();
@@ -9,6 +10,10 @@ dotenv.config();
 
 // middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// SeedRouter
+app.use('/api/seed', seedRouter);
 
 // Connect DB
 mongoose

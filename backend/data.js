@@ -22,7 +22,7 @@ const data = {
     },
   ],
 
-  category: [
+  categories: [
     {
       name: 'Fruits',
     },
