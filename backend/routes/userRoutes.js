@@ -53,7 +53,39 @@ userRouter.post('/register', async (req, res) => {
     image,
   });
   await newUser.save();
+  res.send({
+    _id: newUser._id,
+    name: newUser.name,
+    email: newUser.email,
+    address: newUser.address,
+    phone: newUser.phone,
+    image: newUser.image,
+    isAdmin: newUser.isAdmin,
+  });
   res.send({ message: 'User created successfully' });
+});
+
+// Update user
+userRouter.put('/update', async (req, res) => {
+  const { name, email, password, address, phone, image } = req.body;
+  const user = await User.findById(req.body._id);
+
+  const hashPassword = bcrypt.hashSync(password, 10);
+
+  // if user exists, update user
+  if (user) {
+    user.name = name;
+    user.email = email;
+    user.password = hashPassword;
+    user.address = address;
+    user.phone = phone;
+    user.image = image;
+    await user.save();
+    res.send({ message: 'User updated successfully' });
+    return;
+  }
+  // if user does not exist, send error message
+  res.status(401).send({ message: 'User does not exist' });
 });
 
 export default userRouter;
